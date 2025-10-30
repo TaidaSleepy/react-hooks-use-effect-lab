@@ -3,19 +3,22 @@ import Question from "./Question";
 import quiz from "../data/quiz";
 
 function App() {
-  const [questions, setQuestions] = useState(quiz);
+  const [questions] = useState(quiz); // only need questions array
   const [currentQuestionId, setCurrentQuestion] = useState(1);
   const [score, setScore] = useState(0);
+
   const currentQuestion = questions.find((q) => q.id === currentQuestionId);
 
   function handleQuestionAnswered(correct) {
-    if (currentQuestionId < questions.length) {
-      setCurrentQuestion((currentQuestionId) => currentQuestionId + 1);
-    } else {
-      setCurrentQuestion(null);
-    }
     if (correct) {
       setScore((score) => score + 1);
+    }
+
+    // Move to next question
+    if (currentQuestionId < questions.length) {
+      setCurrentQuestion((id) => id + 1);
+    } else {
+      setCurrentQuestion(null); // game over
     }
   }
 
